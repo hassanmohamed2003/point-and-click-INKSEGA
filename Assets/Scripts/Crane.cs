@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -34,6 +35,10 @@ public class Crane : MonoBehaviour
     private bool enableRopeBreak = true;
     private IEnumerator RopeRoutine;
     private bool firstPressComplete = false;
+    bool movingRight = true;
+
+
+    [SerializeField] private float limit = 130f;
 
     void Awake()
     {
@@ -58,6 +63,8 @@ public class Crane : MonoBehaviour
             HandleUserInput();
         }
         UpdateRope();
+
+
     }
 
     private void HandleUserInput()
@@ -74,6 +81,32 @@ public class Crane : MonoBehaviour
         // Build translation vector for this frame
         Vector2 craneTranslation = new(accelerationX, translationY);
 
+        Vector2 oldCranePosition = rb.position + craneTranslation;
+        Debug.Log(oldCranePosition.x + " : crane position");
+
+        float leftBorder = leftEdgeScreenX + 0.28f;
+        float rightBorder = rightEdgeScreenX - 0.28f;
+/*
+
+        if (movingRight)
+        {
+            craneTranslation.x = 0.03f * LeftRightSpeed;
+
+            if (rb.position.x >= rightBorder)
+            {
+                movingRight = false;
+            }
+        }
+        else
+        {
+            craneTranslation.x = 0.03f * -LeftRightSpeed;
+
+            if (rb.position.x <= leftBorder)
+            {
+                movingRight = true;
+            }
+        }
+*/
         // Override tilt controls for testing with keyboard
         if (Input.GetKey(KeyCode.A))
         {
@@ -84,8 +117,16 @@ public class Crane : MonoBehaviour
             craneTranslation.x = 0.03f * LeftRightSpeed;
         }
 
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            ReleaseConnectedPiece();
+            Debug.Log("Right mouse button clicked");
+        }
+
         // Move crane
         Vector2 newCranePosition = rb.position + craneTranslation;
+
         newCranePosition.x = Math.Clamp(newCranePosition.x, leftEdgeScreenX + 0.28f, rightEdgeScreenX - 0.28f);
 
         rb.MovePosition(newCranePosition);
@@ -133,7 +174,6 @@ public class Crane : MonoBehaviour
 
     public void OnUpdateRopeSwing(float value)
     {
-        const float limit = 130f;
         InitialSwingForce += value;
         if(InitialSwingForce > limit) InitialSwingForce = limit;
     }

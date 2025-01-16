@@ -99,6 +99,11 @@ public class LevelUIHandler : MonoBehaviour
         StarRequirementTexts[0].text = $"{structure.FirstStarScoreRequirement}";
         StarRequirementTexts[1].text = $"{structure.SecondStarScoreRequirement}";
         StarRequirementTexts[2].text = $"{structure.ThirdStarScoreRequirement}";
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            ObjectiveScreen.SetActive(true);
+        }
     }
 
     public void HideObjective()

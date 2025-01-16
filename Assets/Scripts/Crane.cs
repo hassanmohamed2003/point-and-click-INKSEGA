@@ -117,13 +117,6 @@ public class Crane : MonoBehaviour
             craneTranslation.x = 0.03f * LeftRightSpeed;
         }
 
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            ReleaseConnectedPiece();
-            Debug.Log("Right mouse button clicked");
-        }
-
         // Move crane
         Vector2 newCranePosition = rb.position + craneTranslation;
 
@@ -132,7 +125,7 @@ public class Crane : MonoBehaviour
         rb.MovePosition(newCranePosition);
 
         // Release building piece when touch input is detected
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 || Input.GetMouseButtonDown(0))
         {   
             ReleaseConnectedPiece();
             if(!firstPressComplete)

@@ -39,18 +39,7 @@ public class Game : MonoBehaviour
 
     public void OnPieceSpawnedFirstPlay(int spawnedBlockCounter)
     {
-        if(!LevelUI.HasCompletedFirstPlay)
-        {
-            if(spawnedBlockCounter == 1)
-            {
-                StartCoroutine(LevelUI.ShowTiltTutorial());
-            }
-            else if(spawnedBlockCounter == 3)
-            {
-                // crane.EnableRopeBreak = true;
-                StartCoroutine(LevelUI.ShowRopeTutorial());
-            }
-        }
+
     }
 
     private void StartEndless()

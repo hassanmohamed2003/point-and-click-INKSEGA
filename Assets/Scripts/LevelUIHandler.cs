@@ -14,9 +14,6 @@ public class LevelUIHandler : MonoBehaviour
     public GameOverScreen LevelGameOverScreen;
 
     [Header("Texts")]
-    public GameObject TiltTutorial;
-    public GameObject TapTutorial;
-    public GameObject RopeTutorial;
     public TMP_Text EndScoreLevel;
     public TMP_Text EndScoreEndless;
     public TMP_Text EndHighScore;
@@ -120,33 +117,4 @@ public class LevelUIHandler : MonoBehaviour
         EndlessGameOverScreen.Setup();
     }
 
-    public IEnumerator ShowTiltTutorial()
-    {
-        yield return new WaitForSeconds(2.0f);
-        TiltTutorial.gameObject.SetActive(true);
-        yield return new WaitForSeconds(4.0f);
-        TiltTutorial.gameObject.SetActive(false);
-
-        StartCoroutine(ShowTapTutorial());
-    }
-
-    public IEnumerator ShowTapTutorial()
-    {
-        yield return new WaitForSeconds(3.0f);
-        TapTutorial.gameObject.SetActive(true);
-        yield return new WaitForSeconds(3.0f);
-        TapTutorial.gameObject.SetActive(false); 
-    }
-
-    public IEnumerator ShowRopeTutorial()
-    {
-        yield return new WaitForSeconds(3.0f);
-        RopeTutorial.gameObject.SetActive(true);
-        yield return new WaitForSeconds(4.0f);
-        RopeTutorial.gameObject.SetActive(false);
-        SetScoreTextVisibility(true);
-        PlayerPrefs.SetInt("HasCompletedFirstPlay", 1);
-        PlayerPrefs.Save();
-        HasCompletedFirstPlay = true;
-    }
 }

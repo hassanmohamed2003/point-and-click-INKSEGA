@@ -79,6 +79,11 @@ public class Game : MonoBehaviour
 
     public void BlockHitFloor()
     {
+        if (!blockSystem.HasMultipleLandedBlocks)
+        {
+            return;
+        }
+
         if(!IsGameOver && blockSystem.HasFirstBlockLanded)
         {
             if(GameState.IsEndless) EndlessGameOver();

@@ -24,10 +24,11 @@ public class BlockSystem : MonoBehaviour
     private int buildingPhysicsMaterialID;
     private Queue<GameObject> nextBuildingPieces = new();
     private List<GameObject> landedBlocks = new();
+
     private int spawnedBlockCounter = 0;
     private Transform highestBlock;
     public bool HasFirstBlockLanded {get; private set;} = false;
-
+    public bool HasMultipleLandedBlocks { get; private set; } = false;
     void Awake()
     {
         if (nextBuildingPieces.Count == 0 && !HasFirstBlockLanded && GameState.IsEndless)
@@ -110,6 +111,11 @@ public class BlockSystem : MonoBehaviour
     public void AddLandedBlock(GameObject block)
     {
         landedBlocks.Add(block);
+
+        if (landedBlocks.Count > 1)
+        {
+            HasMultipleLandedBlocks = true;
+        }
     }
 
     public List<GameObject> GetLandedBlocks()

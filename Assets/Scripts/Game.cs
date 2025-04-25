@@ -28,12 +28,42 @@ public class Game : MonoBehaviour
     {
         if (instance == null)
             instance = this;
+
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        if(GameState.IsEndless) StartEndless();
+
+        // Get the name of the currently loaded scene
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        // Check the scene name and apply different behavior
+        if (sceneName == "level1")
+        {
+            GameState.CurrentLevelID = 0;
+        }
+        else if (sceneName == "level2")
+        {
+            GameState.CurrentLevelID = 1;
+        }
+        else if (sceneName == "level3")
+        {
+            GameState.CurrentLevelID = 2;
+        }
+
+/*        if (GameState.CurrentLevelID == 1 || GameState.CurrentLevelID == 2)
+        {
+            Debug.Log("test");
+            GameState.NoFail = true;
+        }
+        else
+        {
+            GameState.NoFail = false;
+        }*/
+
+        if (GameState.IsEndless) StartEndless();
         else StartLevel();
     }
 
@@ -88,6 +118,14 @@ public class Game : MonoBehaviour
         {
             if(GameState.IsEndless) EndlessGameOver();
             else LevelGameOver();
+        }
+    }
+
+    public void BlockHitFakeFloor()
+    {
+        if (!blockSystem.HasMultipleLandedBlocks)
+        {
+            return;
         }
     }
 }

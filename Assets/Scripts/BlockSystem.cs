@@ -35,7 +35,17 @@ public class BlockSystem : MonoBehaviour
         {
             AddRandomPieceToQueue();
             AddRandomPieceToQueue();
-        }        
+        }
+        
+        if(GameState.CurrentLevelID == 2)
+        {
+            HasMultipleLandedBlocks = true;
+        }
+
+        if(GameState.CurrentLevelID == 1)
+        {
+            HasFirstBlockLanded = true;
+        }
     }
 
     public void CreatePieceQueueFromLevel(LevelStructure structure)

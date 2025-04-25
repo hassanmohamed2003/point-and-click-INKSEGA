@@ -69,6 +69,8 @@ public class Crane : MonoBehaviour
 
     private void HandleUserInput()
     {
+
+
         // Get the tilt of the phone
         float accelerationX = Math.Clamp(Input.acceleration.x, -MaxAcceleration, MaxAcceleration);
 
@@ -82,7 +84,6 @@ public class Crane : MonoBehaviour
         Vector2 craneTranslation = new(accelerationX, translationY);
 
         Vector2 oldCranePosition = rb.position + craneTranslation;
-        Debug.Log(oldCranePosition.x + " : crane position");
 
         float leftBorder = leftEdgeScreenX + 0.28f;
         float rightBorder = rightEdgeScreenX - 0.28f;
@@ -121,6 +122,19 @@ public class Crane : MonoBehaviour
         Vector2 newCranePosition = rb.position + craneTranslation;
 
         newCranePosition.x = Math.Clamp(newCranePosition.x, leftEdgeScreenX + 0.28f, rightEdgeScreenX - 0.28f);
+
+
+        // Mouse movement override using **right mouse button**, only in level 2
+        if (GameState.CurrentLevelID == 2 && Input.GetMouseButton(1))
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            float targetX = Math.Clamp(mousePosition.x, leftEdgeScreenX + 0.28f, rightEdgeScreenX - 0.28f);
+            newCranePosition = new(targetX, rb.position.y);
+            float smoothSpeed = 1f; // Adjust to taste
+            float smoothedX = Mathf.Lerp(rb.position.x, targetX, smoothSpeed * Time.deltaTime);
+            rb.MovePosition(new Vector2(smoothedX, rb.position.y));
+        }
+
 
         rb.MovePosition(newCranePosition);
 
@@ -246,8 +260,6 @@ public class Crane : MonoBehaviour
             if(lineRenderer) lineRenderer.forceRenderingOff = true;
         }
     }
-
-
 
     IEnumerator RopeBreakingRoutine()
     {

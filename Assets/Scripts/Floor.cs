@@ -4,4 +4,6 @@ using UnityEngine;
 
 public class Floor : MonoBehaviour
 {
+    public bool isReal;
+    public bool isReversed;
 }

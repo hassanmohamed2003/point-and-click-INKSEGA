@@ -39,6 +39,11 @@ public class CameraManager : MonoBehaviour
 
     public void UpdateCameraTargetPosition(Transform highestBlock)
     {
+        if(GameState.CurrentLevelID == 1)
+        {
+            return;
+        }
+
         if(highestBlock != null)
         {
             // Get the camera's world position at the specified target height

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class GameState
 {
-    public static bool IsEndless = true;
+    public static bool IsEndless = false;
     public static int CurrentLevelID;
     public static bool NoFail = false;
     public static bool LockedCheckpoint = false;

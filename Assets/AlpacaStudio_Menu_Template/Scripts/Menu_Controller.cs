@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -78,7 +79,22 @@ public class Menu_Controller : MonoBehaviour {
         }
 	}
 
-	public void GoToLevelSelector()
+    public void OpenScene(int levelID)
+    {
+        GameState.IsEndless = false;
+
+        string sceneName = "level" + (levelID+1);
+
+        GameState.CurrentLevelID = levelID;
+
+        transition.SetActive(true);
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+
+        _audioSourceSFX.PlayOneShot(_audioClip);
+    }
+
+    public void GoToLevelSelector()
 	{
 		transition.SetActive(true);
         _audioSourceSFX.PlayOneShot(_audioClip);

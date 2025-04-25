@@ -11,6 +11,10 @@ public class CheckpointSystem : MonoBehaviour
     private const int maxCheckpoint = 5;
     public void FreezeCheckpointBlock()
     {
+        if(GameState.CurrentLevelID == 1)
+        {
+            return;
+        }
         List<GameObject> blocks = blockSystem.GetLandedBlocks();
         int index = blocks.Count - checkpoint - 1;
         if(index >= 0 && blocks[index].TryGetComponent(out Rigidbody2D rb))

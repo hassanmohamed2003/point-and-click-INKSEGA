@@ -12,7 +12,7 @@ public class CameraFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        targetPos = transform.position;
+        targetPos = transform.position; 
     }
 
     // Update is called once per frame
